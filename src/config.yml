@@ -1,0 +1,10 @@
+enable-sounds: true # Enable or disable sounds.
+reload-message: "&a&lLM &r&7| &r&aReloaded the config." # Reload message.
+required-permission: "&c&lINFO &r&7| &r&cYou do not have the required permission." # Permission message
+not-a-player: "&c&lINFO &r&7| &r&cYou have to be a player to execute this command." # The message to use if a command requires the executer to be a player.
+invalid-player: "&c&lINFO &r&7| &r&cThat player doesn't seem to be online" # Message for invalid player.
+message-color: "&b" # Sets the color for messaging. Example "&b" would turn into "&bFrom exampleplayer: msg"
+action-bar-message-color: "§b" # Sets the color for action bar messaging, only change the letter.
+action-bar: true # True or false for using the action bar
+action-bar-input-color: "§b" # Sets the color for the action bar message (player message)
+message-input-color: "&b" # Sets the color for the messaging (player message)

@@ -18,3 +18,8 @@ commands:
       - r
       - re
       - rep
+  litemessages:
+    usage: §c/lm <reload>
+    description: Main plugin command.
+    aliases:
+      - lm

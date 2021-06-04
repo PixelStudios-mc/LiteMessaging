@@ -13,6 +13,12 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class ReplyCommand implements CommandExecutor {
+    Main plugin;
+
+    public ReplyCommand(Main plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (label.equalsIgnoreCase("reply") || label.equalsIgnoreCase("r") || label.equalsIgnoreCase("re")) {
@@ -34,11 +40,10 @@ public class ReplyCommand implements CommandExecutor {
 
                 Player res = Bukkit.getPlayer(uuid);
                 if (res == null) {
-                    player.sendMessage(ChatColor.RED + "Looks like the player is not online");
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("invalid-player")));
                     return true;
                 }
                 if (args.length == 0) {
-                    player.sendMessage(ChatColor.RED + "Whoops, you need a message. Here's the usage");
                     return false;
                 }
                 StringBuilder message = new StringBuilder();
@@ -46,12 +51,16 @@ public class ReplyCommand implements CommandExecutor {
                     message.append(args[i]).append(" ");
                 }
 
-                String actionMessage = "§bFrom " + player.getDisplayName() + ": " + message;
-                player.sendMessage(ChatColor.AQUA + "To " + res.getDisplayName() + ": " + message);
-                res.sendMessage(ChatColor.AQUA + "From " + player.getDisplayName() + ": " + message);
-                res.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionMessage));
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
-                res.playSound(res.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                String actionMessage = plugin.getConfig().getString("action-bar-message-color") + "From " + player.getDisplayName() + ": " + plugin.getConfig().getString("action-bar-input-color") + message;
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-color")) + "To " + res.getDisplayName() + ": " + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-input-color") + message));
+                res.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-color")) + "From " + player.getDisplayName() + ": " + ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-input-color") + message));
+                if(plugin.getConfig().getBoolean("action-bar") == true) {
+                    res.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionMessage));
+                }
+                if(plugin.getConfig().getBoolean("enable-sounds") == true) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                    res.playSound(res.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                }
             }
         }
         return true;
