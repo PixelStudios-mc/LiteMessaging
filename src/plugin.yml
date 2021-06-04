@@ -1,0 +1,20 @@
+name: LiteMessaging
+main: me.PixelStudios.LiteMessaging.Main
+version: 2.5
+author: PixelStudios
+api-version: 1.16
+prefix: LiteMessaging
+
+commands:
+  message:
+    description: Message a player.
+    usage: §c/message <player> <message>
+    aliases:
+      - msg
+  reply:
+    description: Reply to a player.
+    usage: §c/reply <message>
+    aliases:
+      - r
+      - re
+      - rep
